@@ -4,19 +4,18 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
 import '../../styles/about-page.css';
+import LineChart from '../common/exhibit/LineChart'
 
-const options = {
-  chart: {
-    type: 'spline'
-  },
-  title: {
-    text: 'My chart'
-  },
-  series: [
-    {
-      data: [1, 2, 1, 4, 3, 6]
-    }
-  ]
+const options1Data = [
+  {
+    name: "Recovered",
+
+  }
+];
+const options1 = {
+  title: "Cases",
+  yLabel: "Count",
+  legendEnable: true
 };
 
 // Since this component is simple and static, there's no parent container for it.
@@ -62,10 +61,39 @@ class CovidDashboardPage extends React.Component {
           } else if (!isLoaded) {
             return <div>Loading...</div>;
           } else {
+            let recoveredCaseData = [];
+            let confirmedCaseData = [];
+            let deceasedCaseData = [];
+            for(let i=0; i< data.cases_time_series.length; i++){
+                var item = data.cases_time_series[i];
+                let dailyrecovered = [];
+                let dailyconfirmed = [];
+                let dailydeceased = [];
+
+                dailyrecovered.push(item.date);
+                dailyrecovered.push(parseInt(item.dailyrecovered));
+                recoveredCaseData.push(dailyrecovered);
+
+                dailyconfirmed.push(item.date);
+                dailyconfirmed.push(parseInt(item.dailyconfirmed));
+                confirmedCaseData.push(dailyconfirmed);
+
+                dailydeceased.push(item.date);
+                dailydeceased.push(parseInt(item.dailydeceased));
+                deceasedCaseData.push(dailydeceased);
+            }
+            const optionsRecData = {name: "Recovered", data: recoveredCaseData};
+            const optionsConData = {name: "Confirmed", data: confirmedCaseData};
+            const optionsDesData = {name: "Deceased", data: deceasedCaseData};
+
             return (
             <div>
                 <h2>Covid-19 Dashboard</h2>
-                <HighchartsReact highcharts={Highcharts} options={options} />
+                {/*<HighchartsReact highcharts={Highcharts} options={options} />*/}
+                <LineChart data={new Array(optionsRecData)} options={options1} id="Recovered" />
+                <LineChart data={new Array(optionsConData)} options={options1} id="Confirmed" />
+                <LineChart data={new Array(optionsDesData)} options={options1} id="Deceased" />
+
               <ul>
                 {data.cases_time_series.map(item => (
                             <li key={item.id}>
