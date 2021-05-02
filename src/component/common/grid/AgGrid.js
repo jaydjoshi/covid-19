@@ -7,15 +7,9 @@ const AgGrid = props => {
   const { rowData , columns} = props;
   let columnsData = [];
 
-    for (const [index, value] of columns.entries()) {
+    for (const [value] of columns.entries()) {
         columnsData.push(<AgGridColumn field={value} sortable={ true } filter={ true } ></ AgGridColumn>)
       }
-
-
-    // chartOptions.series = data;
-    // chartOptions.title.text = options.title;
-    // chartOptions.yAxis.title.text = options.yLabel;
-    // chartOptions.legend.enabled = options.legendEnable;
 
 
   return (
@@ -28,16 +22,14 @@ const AgGrid = props => {
 
   );
 };
-/*
-LineChart.propTypes = {
-  data: PropTypes.array,
-  options: PropTypes.object,
-  id: PropTypes.string
+
+AgGrid.propTypes = {
+  rowData: PropTypes.array,
+  columnsData: PropTypes.object
 };
 
-LineChart.defaultProps = {
-  data: [],
-  options: {},
-  id: ""
-};*/
+AgGrid.defaultProps = {
+  rowData: [],
+  columnsData: []
+};
 export default AgGrid;

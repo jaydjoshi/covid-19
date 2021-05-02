@@ -17,11 +17,6 @@ const LineChart = props => {
       yAxis: { ...ChartOptions.yAxis, title: { text: options.yLabel } },
       legend: { ...ChartOptions.legend, enabled: options.legendEnable }
     }
-
-    // chartOptions.series = data;
-    // chartOptions.title.text = options.title;
-    // chartOptions.yAxis.title.text = options.yLabel;
-    // chartOptions.legend.enabled = options.legendEnable;
   }
 
   return (
@@ -31,7 +26,7 @@ const LineChart = props => {
 
   );
 };
-/*
+
 LineChart.propTypes = {
   data: PropTypes.array,
   options: PropTypes.object,
@@ -42,5 +37,6 @@ LineChart.defaultProps = {
   data: [],
   options: {},
   id: ""
-};*/
+};
+
 export default LineChart;

@@ -1,17 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 import '../../styles/about-page.css';
 import LineChart from '../common/exhibit/LineChart'
 import AgGrid from '../common/grid/AgGrid'
 import {columns} from '../../util/Utils.js'
 
-const options1Data = [
-  {
-    name: "Recovered",
 
-  }
-];
 const options1 = {
   title: "Cases",
   yLabel: "Count",
@@ -54,7 +48,6 @@ class CovidDashboardPage extends React.Component {
 
 
     render() {
-      const covidData = this.state.data;
       const { error, isLoaded, data } = this.state;
           if (error) {
             return <div>Error: {error.message}</div>;
@@ -86,7 +79,7 @@ class CovidDashboardPage extends React.Component {
             const optionsConData = {name: "Confirmed", data: confirmedCaseData};
             const optionsDesData = {name: "Deceased", data: deceasedCaseData};
 
-            const rowData = data.statewise.filter(item => item.state != "State Unassigned");
+            const rowData = data.statewise.filter(item => item.state !== "State Unassigned");
             return (
             <div>
                 <h2>Covid-19 Dashboard</h2>

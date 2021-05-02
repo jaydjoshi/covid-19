@@ -1,4 +1,4 @@
-import Highcharts from 'highcharts';
+
 
 export const chartOptions = {
   title: {

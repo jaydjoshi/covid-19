@@ -4,13 +4,12 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import AboutPage from "./component/about/AboutPage";
 import CovidDashboardPage from "./component/dashboard/CovidDashboardPage";
-import HomePage from "./component/HomePage";
 import NotFoundPage from "./component/NotFoundPage";
 import { hot } from "react-hot-loader";
 
 class App extends React.Component {
   render() {
-    const activeStyle = { color: 'blue' };
+
     return (
       <div>
 
