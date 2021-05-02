@@ -11,14 +11,10 @@ const AgGrid = props => {
         columnsData.push(<AgGridColumn field={value} sortable={ true } filter={ true } ></ AgGridColumn>)
       }
 
-
   return (
-
-
       <AgGridReact rowData={rowData}>
               {columnsData}
       </AgGridReact>
-
 
   );
 };
