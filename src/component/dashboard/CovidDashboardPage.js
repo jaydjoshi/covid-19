@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Highcharts from 'highcharts';
-import HighchartsReact from 'highcharts-react-official';
 
 import '../../styles/about-page.css';
 import LineChart from '../common/exhibit/LineChart'
+import AgGrid from '../common/grid/AgGrid'
+import {columns} from '../../util/Utils.js'
 
 const options1Data = [
   {
@@ -86,21 +86,22 @@ class CovidDashboardPage extends React.Component {
             const optionsConData = {name: "Confirmed", data: confirmedCaseData};
             const optionsDesData = {name: "Deceased", data: deceasedCaseData};
 
+            const rowData = data.statewise.filter(item => item.state != "State Unassigned");
             return (
             <div>
                 <h2>Covid-19 Dashboard</h2>
-                {/*<HighchartsReact highcharts={Highcharts} options={options} />*/}
+
+                <div>
                 <LineChart data={new Array(optionsRecData)} options={options1} id="Recovered" />
                 <LineChart data={new Array(optionsConData)} options={options1} id="Confirmed" />
                 <LineChart data={new Array(optionsDesData)} options={options1} id="Deceased" />
+                </div>
 
-              <ul>
-                {data.cases_time_series.map(item => (
-                            <li key={item.id}>
-                              {item.date} {item.dailyconfirmed}
-                            </li>
-                          ))}
-              </ul>
+
+                <div className="ag-theme-alpine" style={{height: 400, width: 1000}}>
+                    <AgGrid rowData={rowData} columns={columns}></AgGrid>
+
+                </div>
               </div>
             );
           }
