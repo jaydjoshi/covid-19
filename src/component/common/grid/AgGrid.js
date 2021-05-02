@@ -4,15 +4,15 @@ import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 
 const AgGrid = props => {
-  const { rowData , columns} = props;
+  const { rowData , columns, id} = props;
   let columnsData = [];
 
     for (const [index, value] of columns.entries()) {
-        columnsData.push(<AgGridColumn field={value} sortable={ true } filter={ true } ></ AgGridColumn>)
+        columnsData.push(<AgGridColumn field={value} sortable={ true } filter={ true } key={"ag-grid-col-"+index}></ AgGridColumn>)
       }
 
   return (
-      <AgGridReact rowData={rowData}>
+      <AgGridReact rowData={rowData} id={id}>
               {columnsData}
       </AgGridReact>
 
@@ -21,11 +21,13 @@ const AgGrid = props => {
 
 AgGrid.propTypes = {
   rowData: PropTypes.array,
-  columns: PropTypes.array
+  columns: PropTypes.array,
+  id: PropTypes.string
 };
 
 AgGrid.defaultProps = {
   rowData: [],
-  columns: []
+  columns: [],
+  id: ""
 };
 export default AgGrid;

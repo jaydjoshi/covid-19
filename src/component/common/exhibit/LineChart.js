@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
@@ -21,7 +21,7 @@ const LineChart = props => {
 
   return (
 
-      <HighchartsReact highcharts={Highcharts} options={highchartsOptions} />
+      <HighchartsReact highcharts={Highcharts} options={highchartsOptions} id={id} />
 
 
   );
