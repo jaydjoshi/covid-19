@@ -3,7 +3,7 @@ import React from 'react';
 import '../../styles/about-page.css';
 import LineChart from '../common/exhibit/LineChart'
 import AgGrid from '../common/grid/AgGrid'
-import {columns} from '../../util/Utils.js'
+import {columns, baseUrl} from '../../util/Utils.js'
 
 
 const options1 = {
@@ -24,8 +24,9 @@ class CovidDashboardPage extends React.Component {
           this.getCovidData();
       }
 
+      console.log("Calling API from: "+ baseUrl);
       getCovidData() {
-          fetch("http://localhost:8080/covid/india")
+          fetch(baseUrl+"covid/india")
                 .then(res => res.json())
                 .then(
                   (result) => {
