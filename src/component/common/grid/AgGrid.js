@@ -1,4 +1,4 @@
-
+import PropTypes from "prop-types";
 import {AgGridColumn, AgGridReact} from 'ag-grid-react';
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
@@ -7,7 +7,7 @@ const AgGrid = props => {
   const { rowData , columns} = props;
   let columnsData = [];
 
-    for (const [value] of columns.entries()) {
+    for (const [index, value] of columns.entries()) {
         columnsData.push(<AgGridColumn field={value} sortable={ true } filter={ true } ></ AgGridColumn>)
       }
 
@@ -25,11 +25,11 @@ const AgGrid = props => {
 
 AgGrid.propTypes = {
   rowData: PropTypes.array,
-  columnsData: PropTypes.object
+  columns: PropTypes.array
 };
 
 AgGrid.defaultProps = {
   rowData: [],
-  columnsData: []
+  columns: []
 };
 export default AgGrid;

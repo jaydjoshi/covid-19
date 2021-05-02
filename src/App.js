@@ -17,9 +17,10 @@ class App extends React.Component {
              <Switch>
           {/* till login page is not created*/}
           <Route exact path="/" component={CovidDashboardPage} />
+          <Route exact path="/covid-19" component={CovidDashboardPage} />
 
-          <Route path="/covid-dashboard" component={CovidDashboardPage} />
-          <Route path="/about" component={AboutPage} />
+          <Route path="/covid-19/covid-dashboard" component={CovidDashboardPage} />
+          <Route path="/covid-19/about" component={AboutPage} />
           <Route component={NotFoundPage} />
         </Switch>
           </Router>
