@@ -3,7 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import AuthService from "../services/auth.service";
+import AuthService from "../../service/AuthService";
 
 const required = value => {
   if (!value) {
@@ -55,7 +55,7 @@ export default class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
-          this.props.history.push("/profile");
+          this.props.history.push("/covid-19/dashboard");
           window.location.reload();
         },
         error => {

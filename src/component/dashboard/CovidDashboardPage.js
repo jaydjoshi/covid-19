@@ -4,7 +4,8 @@ import axios from "axios";
 import '../../styles/about-page.css';
 import LineChart from '../common/exhibit/LineChart'
 import AgGrid from '../common/grid/AgGrid'
-import {columns, apiUrl} from '../../util/Utils.js'
+import {columns} from '../../util/Utils.js'
+import {apiUrl} from '../../util/Url.js'
 
 
 const options1 = {
