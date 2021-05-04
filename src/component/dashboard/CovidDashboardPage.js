@@ -1,9 +1,10 @@
 import React from 'react';
+import axios from "axios";
 
 import '../../styles/about-page.css';
 import LineChart from '../common/exhibit/LineChart'
 import AgGrid from '../common/grid/AgGrid'
-import {columns, baseUrl} from '../../util/Utils.js'
+import {columns, apiUrl} from '../../util/Utils.js'
 
 
 const options1 = {
@@ -12,7 +13,15 @@ const options1 = {
   legendEnable: true
 };
 
-// Since this component is simple and static, there's no parent container for it.
+const accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYyMDE0ODYyNCwiZXhwIjoxNjIwMjM1MDI0fQ.5BDll2kw1Bzd1BcjKlSd-3AFe9V3pndiLk1ElMjElMxHvPPhEsfcOYTpFa70uSJbD8gp4g9_YQ0r34CcFGh4ew";
+
+const authAxios = axios.create({
+    headers: {
+        Authorization: `Bearer ${accessToken}`
+    }
+});
+
+
 class CovidDashboardPage extends React.Component {
     constructor(props) {
         super(props);
@@ -24,9 +33,25 @@ class CovidDashboardPage extends React.Component {
           this.getCovidData();
       }
 
-      console.log("Calling API from: "+ baseUrl);
+
       getCovidData() {
-          fetch(baseUrl+"covid/india")
+            console.log("Calling API from: "+ apiUrl);
+            authAxios.get(apiUrl+"api/covid/india")
+                        .then((response) => {
+                        console.log(response);
+                          this.setState({
+                                                isLoaded: true,
+                                                data: response.data
+                                              });
+                        })
+                        .catch((error) => {
+                          this.setState({
+                                                isLoaded: false,
+                                                error
+                                              });
+                        }
+                      );
+          /*fetch(baseUrl+"api/covid/india")
                 .then(res => res.json())
                 .then(
                   (result) => {
@@ -44,7 +69,7 @@ class CovidDashboardPage extends React.Component {
                       error
                     });
                   }
-                );
+                );*/
       }
 
 
@@ -55,6 +80,7 @@ class CovidDashboardPage extends React.Component {
           } else if (!isLoaded) {
             return <div>Loading...</div>;
           } else {
+            if(data.cases_time_series !== undefined){
             let recoveredCaseData = [];
             let confirmedCaseData = [];
             let deceasedCaseData = [];
@@ -98,6 +124,9 @@ class CovidDashboardPage extends React.Component {
                 </div>
               </div>
             );
+            }else{
+                return <div>Invalid response...</div>;
+            }
           }
 
     }
