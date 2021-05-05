@@ -15,7 +15,6 @@ const options1 = {
   legendEnable: true
 };
 
-//const accessToken = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYyMDE0ODYyNCwiZXhwIjoxNjIwMjM1MDI0fQ.5BDll2kw1Bzd1BcjKlSd-3AFe9V3pndiLk1ElMjElMxHvPPhEsfcOYTpFa70uSJbD8gp4g9_YQ0r34CcFGh4ew";
 const accessToken = authHeader();
 
 const authAxios = axios.create({
