@@ -35,10 +35,6 @@ export const chartOptions = {
   series: [],
   credits: {
     enabled: false
-  },
-  chart: {
-    height: "195px",
-    backgroundColor: "rgb(29, 37, 53)"
   }
 };
 

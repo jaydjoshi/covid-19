@@ -41,7 +41,7 @@ class CovidDashboardPage extends React.Component {
             console.log("Calling API from: "+ apiUrl);
             authAxios.get(apiUrl+"api/covid/india")
                         .then((response) => {
-                        console.log(response);
+
                           this.setState({
                                                 isLoaded: true,
                                                 data: response.data
@@ -54,25 +54,7 @@ class CovidDashboardPage extends React.Component {
                                               });
                         }
                       );
-          /*fetch(baseUrl+"api/covid/india")
-                .then(res => res.json())
-                .then(
-                  (result) => {
-                    this.setState({
-                      isLoaded: true,
-                      data: result
-                    });
-                  },
-                  // Note: it's important to handle errors here
-                  // instead of a catch() block so that we don't swallow
-                  // exceptions from actual bugs in components.
-                  (error) => {
-                    this.setState({
-                      isLoaded: false,
-                      error
-                    });
-                  }
-                );*/
+
       }
 
 
@@ -111,20 +93,54 @@ class CovidDashboardPage extends React.Component {
 
             const rowData = data.statewise.filter(item => item.state !== "State Unassigned");
             return (
-            <div>
-                <h2>Covid-19 Dashboard</h2>
+            <div className="row">
+                <div className="col-lg-12">
 
-                <div>
-                <LineChart data={new Array(optionsRecData)} options={options1} id="Recovered" />
-                <LineChart data={new Array(optionsConData)} options={options1} id="Confirmed" />
-                <LineChart data={new Array(optionsDesData)} options={options1} id="Deceased" />
+                <div className="page-header">
+                    <h2>Covid-19 Dashboard</h2> <hr/>
                 </div>
 
+                <div className="row">
+                    <div className="col-lg-4 col-md-6 col-sm-12">
+                        <p>Confirmed</p>
+                        <span> {data.cases_time_series[data.cases_time_series.length-1].totalconfirmed} </span>
+                        <span> {data.cases_time_series[data.cases_time_series.length-1].dailyconfirmed} </span>
+                     </div>
+                     <div className="col-lg-4 col-md-6 col-sm-12">
+                         <p>Recovered</p>
+                         <span> {data.cases_time_series[data.cases_time_series.length-1].totalrecovered} </span>
+                         <span> {data.cases_time_series[data.cases_time_series.length-1].dailyrecovered} </span>
+                      </div>
+                       <div className="col-lg-4 col-md-6 col-sm-12">
+                           <p>Deceased</p>
+                           <span> {data.cases_time_series[data.cases_time_series.length-1].totaldeceased} </span>
+                           <span> {data.cases_time_series[data.cases_time_series.length-1].dailydeceased} </span>
+                       </div>
+                 </div>
 
-                <div className="ag-theme-alpine" style={{height: 400, width: 1000}}>
-                    <AgGrid rowData={rowData} columns={columns} id="AgGrid"></AgGrid>
 
+                <div className="row">
+                <div className="col-lg-4 col-md-6 col-sm-12">
+                       <LineChart data={new Array(optionsConData)} options={options1} id="confirmed" />
                 </div>
+                <div className="col-lg-4 col-md-6 col-sm-12">
+                    <LineChart data={new Array(optionsRecData)} options={options1} id="recovered" />
+                </div>
+                <div className="col-lg-4 col-md-6 col-sm-12">
+                    <LineChart data={new Array(optionsDesData)} options={options1} id="Deceased" />
+                </div>
+                </div>
+
+                <br/><br/>
+                <div className="row">
+                    <div className="col-lg-12">
+                        <div className="ag-theme-alpine" style={{height: 400}}>
+                            <AgGrid rowData={rowData} columns={columns} id="AgGrid"></AgGrid>
+                        </div>
+                    </div>
+                </div>
+
+              </div>
               </div>
             );
             }else{

@@ -17,7 +17,7 @@ class App extends React.Component {
     return (
       <div>
 
-        <div className="container">
+        <div className="container-fluid">
            <div className="col-lg-12">
 
 
