@@ -2,6 +2,7 @@ import axios from "axios";
 import {apiUrl} from '../util/Url.js'
 
 
+
 class AuthService {
   login(username, password) {
     return axios
@@ -10,6 +11,7 @@ class AuthService {
         password
       })
       .then(response => {
+      console.log(response.data)
         if (response.data.accessToken) {
             console.log(response.data)
           localStorage.setItem("user", JSON.stringify(response.data));
@@ -24,7 +26,7 @@ class AuthService {
   }
 
   register(username, email, password) {
-    return axios.post(apiUrl + "signup", {
+    return axios.post(apiUrl + "api/auth/signup", {
       username,
       email,
       password

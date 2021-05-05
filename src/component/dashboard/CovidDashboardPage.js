@@ -7,6 +7,7 @@ import AgGrid from '../common/grid/AgGrid'
 import {columns} from '../../util/Utils.js'
 import {apiUrl} from '../../util/Url.js'
 
+import authHeader from '../../service/AuthHeader';
 
 const options1 = {
   title: "Cases",
@@ -14,11 +15,12 @@ const options1 = {
   legendEnable: true
 };
 
-const accessToken = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYyMDE0ODYyNCwiZXhwIjoxNjIwMjM1MDI0fQ.5BDll2kw1Bzd1BcjKlSd-3AFe9V3pndiLk1ElMjElMxHvPPhEsfcOYTpFa70uSJbD8gp4g9_YQ0r34CcFGh4ew";
+//const accessToken = "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTYyMDE0ODYyNCwiZXhwIjoxNjIwMjM1MDI0fQ.5BDll2kw1Bzd1BcjKlSd-3AFe9V3pndiLk1ElMjElMxHvPPhEsfcOYTpFa70uSJbD8gp4g9_YQ0r34CcFGh4ew";
+const accessToken = authHeader();
 
 const authAxios = axios.create({
     headers: {
-        Authorization: `Bearer ${accessToken}`
+        Authorization: accessToken
     }
 });
 

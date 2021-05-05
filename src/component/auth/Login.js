@@ -5,6 +5,10 @@ import CheckButton from "react-validation/build/button";
 
 import AuthService from "../../service/AuthService";
 
+import '../../styles/login.css';
+import {Link} from "react-router-dom";
+import { withRouter } from "react-router-dom";
+
 const required = value => {
   if (!value) {
     return (
@@ -15,7 +19,7 @@ const required = value => {
   }
 };
 
-export default class Login extends Component {
+class Login extends Component {
   constructor(props) {
     super(props);
     this.handleLogin = this.handleLogin.bind(this);
@@ -55,8 +59,9 @@ export default class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
+            console.log("In login.js")
           this.props.history.push("/covid-19/dashboard");
-          window.location.reload();
+          //window.location.reload();
         },
         error => {
           const resMessage =
@@ -81,72 +86,67 @@ export default class Login extends Component {
 
   render() {
     return (
-      <div className="col-md-12">
-        <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
 
-          <Form
-            onSubmit={this.handleLogin}
-            ref={c => {
-              this.form = c;
-            }}
-          >
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <Input
-                type="text"
-                className="form-control"
-                name="username"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-                validations={[required]}
-              />
-            </div>
+      
+        <div className="row">
+          <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div className="card card-signin my-5">
+              <div className="card-body">
+                <h5 className="card-title text-center">Sign In</h5>
+                <Form className="form-signin" onSubmit={this.handleLogin}
+                        ref={c => {
+                              this.form = c;
+                            }}>
+                  <div className="form-label-group">
+                    <input type="text" id="username" className="form-control" placeholder="Username" required autoFocus value={this.state.username} onChange={this.onChangeUsername} validations={[required]}/>
+                    <label htmlFor="username">Username</label>
+                  </div>
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Input
-                type="password"
-                className="form-control"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChangePassword}
-                validations={[required]}
-              />
-            </div>
+    
+                  <div className="form-label-group">
+                    <input type="password" id="inputPassword" className="form-control" placeholder="Password" required value={this.state.password} onChange={this.onChangePassword} validations={[required]}/>
+                    <label htmlFor="inputPassword">Password</label>
+                  </div>
 
-            <div className="form-group">
-              <button
-                className="btn btn-primary btn-block"
-                disabled={this.state.loading}
-              >
-                {this.state.loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
-                )}
-                <span>Login</span>
-              </button>
-            </div>
+                    {this.state.message && (
+                                  <div className="form-group">
+                                    <div className="alert alert-danger alert-validate" role="alert">
+                                      {this.state.message}
+                                    </div>
+                                  </div>
+                                )}
 
-            {this.state.message && (
-              <div className="form-group">
-                <div className="alert alert-danger" role="alert">
-                  {this.state.message}
-                </div>
+                  <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit" disabled={this.state.loading}>
+                  {this.state.loading && (
+                                <span className="spinner-border spinner-border-sm"></span>
+                              )}
+                              <span> Sign in</span>
+                  </button>
+
+                  <CheckButton
+                                style={{ display: "none" }}
+                                ref={c => {
+                                  this.checkBtn = c;
+                                }}
+                              />
+
+
+                </Form>
+                <hr className="my-4"/>
+                <p className="text-center">
+                                   <Link to='/covid-19/register'>Create an Account</Link>
+
+                 </p>
               </div>
-            )}
-            <CheckButton
-              style={{ display: "none" }}
-              ref={c => {
-                this.checkBtn = c;
-              }}
-            />
-          </Form>
-        </div>
-      </div>
+            </div>
+          </div>
+       </div>
+    
+
+
+
     );
   }
 }
+
+export default withRouter(Login);
