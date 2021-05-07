@@ -20,11 +20,11 @@ export const chartOptions = {
     }
   },
   xAxis: {
-    type: "datetime",
-    labels: {
-          format: '{value:%Y-%b-%e}'
-        },
-    gridLineWidth: 1
+    type: 'datetime',
+        dateTimeLabelFormats: {
+        	day: "%e-%b-%y",
+        	month: "%b-%y"
+        }
   },
   legend: {
     layout: "horizontal",

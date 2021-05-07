@@ -74,15 +74,16 @@ class CovidDashboardPage extends React.Component {
                 let dailyconfirmed = [];
                 let dailydeceased = [];
 
-                dailyrecovered.push(item.date);
+                console.log(item.dateInEpoch * 1000);
+                dailyrecovered.push(item.dateInEpoch * 1000);
                 dailyrecovered.push(parseInt(item.dailyrecovered));
                 recoveredCaseData.push(dailyrecovered);
 
-                dailyconfirmed.push(item.date);
+                dailyconfirmed.push(item.dateInEpoch * 1000);
                 dailyconfirmed.push(parseInt(item.dailyconfirmed));
                 confirmedCaseData.push(dailyconfirmed);
 
-                dailydeceased.push(item.date);
+                dailydeceased.push(item.dateInEpoch * 1000);
                 dailydeceased.push(parseInt(item.dailydeceased));
                 deceasedCaseData.push(dailydeceased);
             }
