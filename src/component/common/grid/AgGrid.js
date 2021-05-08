@@ -27,7 +27,6 @@ const AgGrid = props => {
       };
   return (
 
-
       <AgGridReact rowData={rowData} id={id} onGridReady={onGridReady}>
               {columnsData}
       </AgGridReact>

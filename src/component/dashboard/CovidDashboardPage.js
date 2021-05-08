@@ -59,50 +59,75 @@ class CovidDashboardPage extends React.Component {
             return <div>Loading...</div>;
           } else {
             if(data.cases_time_series !== undefined){
-            let recoveredCaseData = [];
-            let confirmedCaseData = [];
-            let deceasedCaseData = [];
-            let activeCaseData = [];
-            let categories = [];
-            for(let i=0; i< data.cases_time_series.length; i++){
-                var item = data.cases_time_series[i];
-                let dailyrecovered = [];
-                let dailyconfirmed = [];
-                let dailydeceased = [];
-                let dailyactive = [];
+                let recoveredCaseData = [];
+                let confirmedCaseData = [];
+                let deceasedCaseData = [];
+                let activeCaseData = [];
+                let categories = [];
+                for(let i=0; i< data.cases_time_series.length; i++){
+                    var item = data.cases_time_series[i];
+                    let dailyrecovered = [];
+                    let dailyconfirmed = [];
+                    let dailydeceased = [];
+                    let dailyactive = [];
 
-                let epochDate = item.dateInEpoch * 1000;
-                dailyrecovered.push(epochDate);
-                dailyrecovered.push(parseInt(item.dailyrecovered));
-                recoveredCaseData.push(dailyrecovered);
+                    let epochDate = item.dateInEpoch * 1000;
+                    dailyrecovered.push(epochDate);
+                    dailyrecovered.push(parseInt(item.dailyrecovered));
+                    recoveredCaseData.push(dailyrecovered);
 
-                dailyconfirmed.push(epochDate);
-                dailyconfirmed.push(parseInt(item.dailyconfirmed));
-                confirmedCaseData.push(dailyconfirmed);
+                    dailyconfirmed.push(epochDate);
+                    dailyconfirmed.push(parseInt(item.dailyconfirmed));
+                    confirmedCaseData.push(dailyconfirmed);
 
-                dailydeceased.push(epochDate);
-                dailydeceased.push(parseInt(item.dailydeceased));
-                deceasedCaseData.push(dailydeceased);
+                    dailydeceased.push(epochDate);
+                    dailydeceased.push(parseInt(item.dailydeceased));
+                    deceasedCaseData.push(dailydeceased);
 
-                dailyactive.push(epochDate);
-                dailyactive.push(dailyconfirmed[1] - dailyrecovered[1] - dailydeceased[1]);
-                activeCaseData.push(dailyactive);
-            }
-            const optionsRecData = {name: "Recovered", data: recoveredCaseData, color: "#28a745"};
-            const optionsConData = {name: "Confirmed", data: confirmedCaseData, color: "#ff073a"};
-            const optionsDesData = {name: "Deceased", data: deceasedCaseData, color: "#6c757d"};
-            const optionsActData = {name: "Active", data: activeCaseData, color: "#007bff"};
+                    dailyactive.push(epochDate);
+                    dailyactive.push(dailyconfirmed[1] - dailyrecovered[1] - dailydeceased[1]);
+                    activeCaseData.push(dailyactive);
+                }
 
-            const totalConfirmed = data.cases_time_series[data.cases_time_series.length-1].totalconfirmed;
-            const dailyConfirmed = data.cases_time_series[data.cases_time_series.length-1].dailyconfirmed;
-            const totalRecovered = data.cases_time_series[data.cases_time_series.length-1].totalrecovered;
-            const dailyRecovered = data.cases_time_series[data.cases_time_series.length-1].dailyrecovered;
-            const totalDeceased = data.cases_time_series[data.cases_time_series.length-1].totaldeceased;
-            const dailyDeceased = data.cases_time_series[data.cases_time_series.length-1].dailydeceased;
-            let totalActive = totalConfirmed - totalRecovered - totalDeceased;
-            let dailyActive = dailyConfirmed - dailyRecovered - dailyDeceased;
+                let testedData = [];
+                let vacinationData = [];
+                for(let i=0; i< data.tested.length; i++){
+                    var item = data.tested[i];
+                    let dailyTested = [];
+                    let dailyVacinated = [];
 
-            const rowData = data.statewise.filter(item => item.state !== "State Unassigned");
+                    let epochDate = item.testedAsOfDateInEpoch * 1000;
+
+                    if(item.dailyrtpcrsamplescollectedicmrapplication != ""){
+                        dailyTested.push(epochDate);
+                        dailyTested.push( parseInt(item.dailyrtpcrsamplescollectedicmrapplication));
+                        testedData.push(dailyTested);
+                    }
+
+                    if(item.firstdoseadministered != ""){
+                        dailyVacinated.push(epochDate);
+                        dailyVacinated.push( parseInt(item.firstdoseadministered));
+                        vacinationData.push(dailyVacinated);
+                    }
+                }
+
+                const optionsRecData = {name: "Recovered", data: recoveredCaseData, color: "#009688"};
+                const optionsConData = {name: "Confirmed", data: confirmedCaseData, color: "#f44336"};
+                const optionsDesData = {name: "Deceased", data: deceasedCaseData, color: "#6c757d"};
+                const optionsActData = {name: "Active", data: activeCaseData, color: "#3f51b5"};
+                const optionsTesData = {name: "Tested", data: testedData, color: "#673ab7"};
+                const optionsVacData = {name: "Vacinated", data: vacinationData, color: "#03a9f4"};
+
+                const totalConfirmed = data.cases_time_series[data.cases_time_series.length-1].totalconfirmed;
+                const dailyConfirmed = data.cases_time_series[data.cases_time_series.length-1].dailyconfirmed;
+                const totalRecovered = data.cases_time_series[data.cases_time_series.length-1].totalrecovered;
+                const dailyRecovered = data.cases_time_series[data.cases_time_series.length-1].dailyrecovered;
+                const totalDeceased = data.cases_time_series[data.cases_time_series.length-1].totaldeceased;
+                const dailyDeceased = data.cases_time_series[data.cases_time_series.length-1].dailydeceased;
+                let totalActive = totalConfirmed - totalRecovered - totalDeceased;
+                let dailyActive = dailyConfirmed - dailyRecovered - dailyDeceased;
+
+                const rowData = data.statewise.filter(item => item.state !== "State Unassigned");
             return (
             <div className="row">
                 <div className="col-lg-12">
@@ -140,7 +165,7 @@ class CovidDashboardPage extends React.Component {
                        </div>
                        <div className="col"></div>
                  </div>
-                 <br/><br/>
+                 <br/>
 
 
                 <div className="row">
@@ -158,6 +183,12 @@ class CovidDashboardPage extends React.Component {
                             </div>
                             <div className="col-lg-6 col-md-6 col-sm-12">
                                 <LineChart data={new Array(optionsDesData)} options={optionsDeceased} id="Deceased" />
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-sm-12">
+                                  <LineChart data={new Array(optionsTesData)} options={optionsActive} id="Tested" />
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-sm-12">
+                                <LineChart data={new Array(optionsVacData)} options={optionsDeceased} id="Vacinated" />
                             </div>
                          </div>
                     </div>

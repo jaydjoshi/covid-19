@@ -3,19 +3,23 @@
 }
 
 .is-confirmed{
-    color: #ff073a;
+    color: #f44336;
+    margin-bottom: 1rem
 }
 
 .is-active{
-    color: #007bff;
+    color: #3f51b5;
+    margin-bottom: 1rem
 }
 
 .is-recovered{
-    color: #28a745;
+    color: #009688;
+    margin-bottom: 1rem
 }
 
 .is-deceased{
     color: #6c757d;
+    margin-bottom: 1rem
 }
 
 .is-confirmed-blur{
