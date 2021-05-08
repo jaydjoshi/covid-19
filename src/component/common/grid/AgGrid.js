@@ -8,10 +8,19 @@ const AgGrid = props => {
   let columnsData = [];
 
     for (const [index, value] of columns.entries()) {
-        columnsData.push(<AgGridColumn field={value} sortable={ true } filter={ true } key={"ag-grid-col-"+index}></ AgGridColumn>)
+        if(value === "state"){
+            columnsData.push(<AgGridColumn field={value} sortable={ true } filter={ true } key={"ag-grid-col-"+index}></ AgGridColumn>)
+        }else{
+            columnsData.push(<AgGridColumn field={value} sortable={ true } filter={ true } valueFormatter={numberFormatter} key={"ag-grid-col-"+index}></ AgGridColumn>)
+        }
       }
 
+    function numberFormatter(params) {
+         return params.value.toLocaleString('en-IN');
+       }
   return (
+
+
       <AgGridReact rowData={rowData} id={id}>
               {columnsData}
       </AgGridReact>
