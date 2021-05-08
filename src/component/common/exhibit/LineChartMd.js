@@ -7,8 +7,7 @@ export const chartOptions = {
     style: {
       textTransform: "none",
       fontSize: "1.5rem",
-      fontWeight: "400",
-      fontFamily: "Roboto"
+      fontWeight: "500"
     }
   },
   yAxis: {
@@ -21,10 +20,10 @@ export const chartOptions = {
   },
   xAxis: {
     type: 'datetime',
-        dateTimeLabelFormats: {
-        	day: "%e-%b-%y",
-        	month: "%b-%y"
-        }
+    dateTimeLabelFormats: {
+        day: "%e-%b-%y",
+        month: "%b-%y"
+    }
   },
   legend: {
     layout: "horizontal",

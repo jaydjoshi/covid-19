@@ -6,14 +6,11 @@ import LineChart from '../common/exhibit/LineChart'
 import AgGrid from '../common/grid/AgGrid'
 import {columns} from '../../util/Utils.js'
 import {apiUrl} from '../../util/Url.js'
+import {optionsConfirmed, optionsRecovered, optionsActive, optionsDeceased} from '../../util/ChartUtils.js'
 
 import authHeader from '../../service/AuthHeader';
 
-const options1 = {
-  title: "Cases",
-  yLabel: "Count",
-  legendEnable: true
-};
+
 
 const accessToken = authHeader();
 
@@ -39,21 +36,18 @@ class CovidDashboardPage extends React.Component {
       getCovidData() {
             console.log("Calling API from: "+ apiUrl);
             authAxios.get(apiUrl+"api/covid/india")
-                        .then((response) => {
-
-                          this.setState({
-                                                isLoaded: true,
-                                                data: response.data
-                                              });
-                        })
-                        .catch((error) => {
-                          this.setState({
-                                                isLoaded: false,
-                                                error
-                                              });
-                        }
-                      );
-
+            .then((response) => {
+                  this.setState({
+                       isLoaded: true,
+                       data: response.data
+                  });
+            })
+            .catch((error) => {
+                   this.setState({
+                        isLoaded: false,
+                        error
+                   });
+            });
       }
 
 
@@ -68,27 +62,45 @@ class CovidDashboardPage extends React.Component {
             let recoveredCaseData = [];
             let confirmedCaseData = [];
             let deceasedCaseData = [];
+            let activeCaseData = [];
+            let categories = [];
             for(let i=0; i< data.cases_time_series.length; i++){
                 var item = data.cases_time_series[i];
                 let dailyrecovered = [];
                 let dailyconfirmed = [];
                 let dailydeceased = [];
+                let dailyactive = [];
 
-                dailyrecovered.push(item.dateInEpoch * 1000);
+                let epochDate = item.dateInEpoch * 1000;
+                dailyrecovered.push(epochDate);
                 dailyrecovered.push(parseInt(item.dailyrecovered));
                 recoveredCaseData.push(dailyrecovered);
 
-                dailyconfirmed.push(item.dateInEpoch * 1000);
+                dailyconfirmed.push(epochDate);
                 dailyconfirmed.push(parseInt(item.dailyconfirmed));
                 confirmedCaseData.push(dailyconfirmed);
 
-                dailydeceased.push(item.dateInEpoch * 1000);
+                dailydeceased.push(epochDate);
                 dailydeceased.push(parseInt(item.dailydeceased));
                 deceasedCaseData.push(dailydeceased);
+
+                dailyactive.push(epochDate);
+                dailyactive.push(dailyconfirmed[1] - dailyrecovered[1] - dailydeceased[1]);
+                activeCaseData.push(dailyactive);
             }
             const optionsRecData = {name: "Recovered", data: recoveredCaseData};
             const optionsConData = {name: "Confirmed", data: confirmedCaseData};
             const optionsDesData = {name: "Deceased", data: deceasedCaseData};
+            const optionsActData = {name: "Active", data: activeCaseData};
+
+            const totalConfirmed = data.cases_time_series[data.cases_time_series.length-1].totalconfirmed;
+            const dailyConfirmed = data.cases_time_series[data.cases_time_series.length-1].dailyconfirmed;
+            const totalRecovered = data.cases_time_series[data.cases_time_series.length-1].totalrecovered;
+            const dailyRecovered = data.cases_time_series[data.cases_time_series.length-1].dailyrecovered;
+            const totalDeceased = data.cases_time_series[data.cases_time_series.length-1].totaldeceased;
+            const dailyDeceased = data.cases_time_series[data.cases_time_series.length-1].dailydeceased;
+            let totalActive = totalConfirmed - totalRecovered - totalDeceased;
+            let dailyActive = dailyConfirmed - dailyRecovered - dailyDeceased;
 
             const rowData = data.statewise.filter(item => item.state !== "State Unassigned");
             return (
@@ -99,35 +111,57 @@ class CovidDashboardPage extends React.Component {
                     <h2>Covid-19 Dashboard</h2> <hr/>
                 </div>
 
+                <br/>
                 <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12">
-                        <p>Confirmed</p>
-                        <span> {data.cases_time_series[data.cases_time_series.length-1].totalconfirmed} </span>
-                        <span> {data.cases_time_series[data.cases_time_series.length-1].dailyconfirmed} </span>
-                     </div>
-                     <div className="col-lg-4 col-md-6 col-sm-12">
-                         <p>Recovered</p>
-                         <span> {data.cases_time_series[data.cases_time_series.length-1].totalrecovered} </span>
-                         <span> {data.cases_time_series[data.cases_time_series.length-1].dailyrecovered} </span>
-                      </div>
-                       <div className="col-lg-4 col-md-6 col-sm-12">
-                           <p>Deceased</p>
-                           <span> {data.cases_time_series[data.cases_time_series.length-1].totaldeceased} </span>
-                           <span> {data.cases_time_series[data.cases_time_series.length-1].dailydeceased} </span>
+                    <div className="col"></div>
+                    <div className="col-lg-8 col-md-10">
+                        <div className="row">
+                            <div className="col-lg-3 col-md-6 col-sm-12 text-center is-confirmed">
+                                <h4>Confirmed</h4>
+                                <div> {totalConfirmed.toLocaleString('en-IN')} </div>
+                                <div className="small-text"> + {dailyConfirmed.toLocaleString('en-IN')} </div>
+                             </div>
+                             <div className="col-lg-3 col-md-6 col-sm-12 text-center is-recovered">
+                                 <h4>Recovered</h4>
+                                 <div> {totalRecovered.toLocaleString('en-IN')} </div>
+                                 <div className="small-text"> + {dailyRecovered.toLocaleString('en-IN')} </div>
+                              </div>
+                               <div className="col-lg-3 col-md-6 col-sm-12 text-center is-active">
+                                   <h4>Active</h4>
+                                   <div> {totalActive.toLocaleString('en-IN')} </div>
+                                   <div className="small-text"> + {dailyActive.toLocaleString('en-IN')} </div>
+                               </div>
+                               <div className="col-lg-3 col-md-6 col-sm-12 text-center is-deceased">
+                                   <h4>Deceased</h4>
+                                   <div> {totalDeceased.toLocaleString('en-IN')} </div>
+                                   <div className="small-text"> + {dailyDeceased.toLocaleString('en-IN')} </div>
+                               </div>
+                           </div>
                        </div>
+                       <div className="col"></div>
                  </div>
+                 <br/><br/>
 
 
                 <div className="row">
-                <div className="col-lg-4 col-md-6 col-sm-12">
-                       <LineChart data={new Array(optionsConData)} options={options1} id="confirmed" />
-                </div>
-                <div className="col-lg-4 col-md-6 col-sm-12">
-                    <LineChart data={new Array(optionsRecData)} options={options1} id="recovered" />
-                </div>
-                <div className="col-lg-4 col-md-6 col-sm-12">
-                    <LineChart data={new Array(optionsDesData)} options={options1} id="Deceased" />
-                </div>
+                    <div className="col"></div>
+                    <div className="col-lg-11 col-md-11">
+                         <div className="row">
+                            <div className="col-lg-6 col-md-6 col-sm-12">
+                                   <LineChart data={new Array(optionsConData)} options={optionsConfirmed} id="confirmed" />
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-sm-12">
+                                <LineChart data={new Array(optionsRecData)} options={optionsRecovered} id="recovered" />
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-sm-12">
+                                  <LineChart data={new Array(optionsActData)} options={optionsActive} id="Active" />
+                            </div>
+                            <div className="col-lg-6 col-md-6 col-sm-12">
+                                <LineChart data={new Array(optionsDesData)} options={optionsDeceased} id="Deceased" />
+                            </div>
+                         </div>
+                    </div>
+                    <div className="col"></div>
                 </div>
 
                 <br/><br/>

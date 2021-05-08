@@ -4,6 +4,7 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import ChartOptions from "./LineChartMd";
 
+import '../../../styles/chart.css';
 
 const LineChart = props => {
   const { data, options, id } = props;
@@ -17,11 +18,14 @@ const LineChart = props => {
       yAxis: { ...ChartOptions.yAxis, title: { text: options.yLabel } },
       legend: { ...ChartOptions.legend, enabled: options.legendEnable }
     }
+    //highchartsOptions.series[0].options.color = "#008800";
   }
 
   return (
 
-      <HighchartsReact highcharts={Highcharts} options={highchartsOptions} id={id} />
+      <div className="line-chart">
+          <HighchartsReact highcharts={Highcharts} options={highchartsOptions} id={id} />
+      </div>
 
 
   );
