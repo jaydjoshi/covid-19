@@ -1,6 +1,6 @@
 # Covid-19 Dashboard UI
 Covid-19 dashboard is a react application, It provides statistics for covid-19 cases, vacination and tests in India.
-Application is hosted on hithub pages, deployed in github pages at https://jaydjoshi.github.io/covid-19.
+Application is hosted on heroku , deployed at https://covid-19-dashboard-ui.herokuapp.com/
 
 ## Getting Started
 
@@ -45,5 +45,6 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ### `npm run deploy`
 
-Build and Deploy the application on github pages.
-URL - https://jaydjoshi.github.io/covid-19
+Build and Deploy the application on heroku.
+
+URL- https://covid-19-dashboard-ui.herokuapp.com/
