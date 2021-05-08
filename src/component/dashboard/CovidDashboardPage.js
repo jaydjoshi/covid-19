@@ -99,14 +99,14 @@ class CovidDashboardPage extends React.Component {
 
                     let epochDate = item.testedAsOfDateInEpoch * 1000;
 
-                    if(item.dailyrtpcrsamplescollectedicmrapplication != ""){
+                    if(item.dailyrtpcrsamplescollectedicmrapplication !== ""){
                         dailyTested.push(epochDate);
                         dailyTested.push( parseInt(item.dailyrtpcrsamplescollectedicmrapplication));
                         testedData.push(dailyTested);
                     }
 
 
-                    if(item.firstdoseadministered != ""){
+                    if(item.firstdoseadministered !== ""){
                         dailyVacinated.push(epochDate);
                         let dailyVacination = parseInt(item.firstdoseadministered) - previousDayVacinated;
                         dailyVacinated.push( dailyVacination);
