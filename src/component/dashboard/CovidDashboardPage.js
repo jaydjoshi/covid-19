@@ -91,6 +91,7 @@ class CovidDashboardPage extends React.Component {
 
                 let testedData = [];
                 let vacinationData = [];
+                let previousDayVacinated = 0;
                 for(let i=0; i< data.tested.length; i++){
                     var item = data.tested[i];
                     let dailyTested = [];
@@ -104,10 +105,13 @@ class CovidDashboardPage extends React.Component {
                         testedData.push(dailyTested);
                     }
 
+
                     if(item.firstdoseadministered != ""){
                         dailyVacinated.push(epochDate);
-                        dailyVacinated.push( parseInt(item.firstdoseadministered));
+                        let dailyVacination = parseInt(item.firstdoseadministered) - previousDayVacinated;
+                        dailyVacinated.push( dailyVacination);
                         vacinationData.push(dailyVacinated);
+                        previousDayVacinated = parseInt(item.firstdoseadministered);
                     }
                 }
 
@@ -117,6 +121,7 @@ class CovidDashboardPage extends React.Component {
                 const optionsActData = {name: "Active", data: activeCaseData, color: "#3f51b5"};
                 const optionsTesData = {name: "Tested", data: testedData, color: "#673ab7"};
                 const optionsVacData = {name: "Vacinated", data: vacinationData, color: "#03a9f4"};
+                console.log(vacinationData);
 
                 const totalConfirmed = data.cases_time_series[data.cases_time_series.length-1].totalconfirmed;
                 const dailyConfirmed = data.cases_time_series[data.cases_time_series.length-1].dailyconfirmed;

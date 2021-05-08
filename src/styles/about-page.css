@@ -21,23 +21,3 @@
     color: #6c757d;
     margin-bottom: 1rem
 }
-
-.is-confirmed-blur{
-    color: #ff073a99;
-}
-
-.is-active-blur{
-    color: #007bff99;
-}
-
-.is-recovered-blur{
-    color: #28a74599;
-}
-
-.is-deceased-blur{
-    color: #6c757d99;
-}
-
-.small-text{
-    font-size: 0.8rem;
-}
