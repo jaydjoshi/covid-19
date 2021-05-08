@@ -18,7 +18,6 @@ const LineChart = props => {
       yAxis: { ...ChartOptions.yAxis, title: { text: options.yLabel } },
       legend: { ...ChartOptions.legend, enabled: options.legendEnable }
     }
-    //highchartsOptions.series[0].options.color = "#008800";
   }
 
   return (

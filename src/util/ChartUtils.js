@@ -1,23 +1,23 @@
 export const optionsConfirmed = {
-  title: "Confirmed Cases",
+  title: "",
   yLabel: "Count",
   legendEnable: true
 };
 
 export const optionsRecovered = {
-  title: "Recovered Cases",
+  title: "",
   yLabel: "Count",
   legendEnable: true
 };
 
 export const optionsActive = {
-  title: "Active Cases",
+  title: "",
   yLabel: "Count",
   legendEnable: true
 };
 
 export const optionsDeceased = {
-  title: "Deceased Cases",
+  title: "",
   yLabel: "Count",
   legendEnable: true
 };
