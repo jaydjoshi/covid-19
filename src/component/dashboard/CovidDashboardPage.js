@@ -167,7 +167,7 @@ class CovidDashboardPage extends React.Component {
                 <br/><br/>
                 <div className="row">
                     <div className="col-lg-12">
-                        <div className="ag-theme-alpine" style={{height: 400}}>
+                        <div className="ag-theme-material" style={{height: 400}}>
                             <AgGrid rowData={rowData} columns={columns} id="AgGrid"></AgGrid>
                         </div>
                     </div>
