@@ -63,9 +63,9 @@ class CovidDashboardPage extends React.Component {
                 let confirmedCaseData = [];
                 let deceasedCaseData = [];
                 let activeCaseData = [];
-                let categories = [];
+
                 for(let i=0; i< data.cases_time_series.length; i++){
-                    var item = data.cases_time_series[i];
+                    let item = data.cases_time_series[i];
                     let dailyrecovered = [];
                     let dailyconfirmed = [];
                     let dailydeceased = [];
@@ -93,7 +93,7 @@ class CovidDashboardPage extends React.Component {
                 let vacinationData = [];
                 let previousDayVacinated = 0;
                 for(let i=0; i< data.tested.length; i++){
-                    var item = data.tested[i];
+                    item = data.tested[i];
                     let dailyTested = [];
                     let dailyVacinated = [];
 

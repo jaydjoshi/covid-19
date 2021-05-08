@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route, Link,  BrowserRouter as Router } from "react-router-dom";
+import { Switch, Route,  BrowserRouter as Router } from "react-router-dom";
 
 import AboutPage from "./component/about/AboutPage";
 import CovidDashboardPage from "./component/dashboard/CovidDashboardPage";
