@@ -21,3 +21,14 @@
     color: #6c757d;
     margin-bottom: 1rem
 }
+
+.on-load
+{
+    animation-delay: 750ms;
+    -webkit-animation-duration: .45s;
+    animation-duration: .45s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+    -webkit-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+}

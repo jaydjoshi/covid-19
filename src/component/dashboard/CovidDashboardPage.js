@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from "axios";
 
-import '../../styles/about-page.css';
+import '../../styles/dashboard-page.css';
 import LineChart from '../common/exhibit/LineChart'
 import AgGrid from '../common/grid/AgGrid'
 import {columns} from '../../util/Utils.js'
@@ -11,6 +11,8 @@ import {optionsConfirmed, optionsRecovered, optionsActive, optionsDeceased} from
 import authHeader from '../../service/AuthHeader';
 import {Link} from "react-router-dom";
 import AuthService from "../../service/AuthService";
+
+import ErrorPage from '../ErrorPage.js'
 
 const accessToken = authHeader();
 
@@ -54,9 +56,15 @@ class CovidDashboardPage extends React.Component {
     render() {
       const { error, isLoaded, data } = this.state;
           if (error) {
-            return <div>Error: {error.message}</div>;
+            return <ErrorPage message={error.message}></ErrorPage>;
           } else if (!isLoaded) {
-            return <div>Loading...</div>;
+            return <div className="container">
+                    <div className="d-flex align-items-center justify-content-center">
+                        <div className="spinner-border text-primary" role="status">
+                         <span className="sr-only">Loading...</span>
+                       </div>
+                   </div>
+                   </div>;
           } else {
             if(data.cases_time_series !== undefined){
                 let recoveredCaseData = [];
@@ -158,22 +166,22 @@ class CovidDashboardPage extends React.Component {
                     <div className="col"></div>
                     <div className="col-lg-8 col-md-10">
                         <div className="row">
-                            <div className="col-lg-3 col-md-6 col-sm-12 text-center is-confirmed">
+                            <div className="col-lg-3 col-md-6 col-sm-12 text-center is-confirmed on-load">
                                 <h4>Confirmed</h4>
                                 <div> {totalConfirmed.toLocaleString('en-IN')} </div>
                                 <div className="small-text"> + {dailyConfirmed.toLocaleString('en-IN')} </div>
                              </div>
-                             <div className="col-lg-3 col-md-6 col-sm-12 text-center is-recovered">
+                             <div className="col-lg-3 col-md-6 col-sm-12 text-center is-recovered on-load">
                                  <h4>Recovered</h4>
                                  <div> {totalRecovered.toLocaleString('en-IN')} </div>
                                  <div className="small-text"> + {dailyRecovered.toLocaleString('en-IN')} </div>
                               </div>
-                               <div className="col-lg-3 col-md-6 col-sm-12 text-center is-active">
+                               <div className="col-lg-3 col-md-6 col-sm-12 text-center is-active on-load">
                                    <h4>Active</h4>
                                    <div> {totalActive.toLocaleString('en-IN')} </div>
                                    <div className="small-text"> + {dailyActive.toLocaleString('en-IN')} </div>
                                </div>
-                               <div className="col-lg-3 col-md-6 col-sm-12 text-center is-deceased">
+                               <div className="col-lg-3 col-md-6 col-sm-12 text-center is-deceased on-load">
                                    <h4>Deceased</h4>
                                    <div> {totalDeceased.toLocaleString('en-IN')} </div>
                                    <div className="small-text"> + {dailyDeceased.toLocaleString('en-IN')} </div>

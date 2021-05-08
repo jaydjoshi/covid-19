@@ -31,6 +31,13 @@ export const chartOptions = {
     verticalAlign: "top",
     floating: true
   },
+   plotOptions: {
+      series: {
+          animation: {
+               duration: 1000
+          }
+      }
+   },
   series: [],
   credits: {
     enabled: false
