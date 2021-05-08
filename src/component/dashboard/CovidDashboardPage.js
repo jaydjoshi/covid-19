@@ -88,10 +88,10 @@ class CovidDashboardPage extends React.Component {
                 dailyactive.push(dailyconfirmed[1] - dailyrecovered[1] - dailydeceased[1]);
                 activeCaseData.push(dailyactive);
             }
-            const optionsRecData = {name: "Recovered", data: recoveredCaseData};
-            const optionsConData = {name: "Confirmed", data: confirmedCaseData};
-            const optionsDesData = {name: "Deceased", data: deceasedCaseData};
-            const optionsActData = {name: "Active", data: activeCaseData};
+            const optionsRecData = {name: "Recovered", data: recoveredCaseData, color: "#28a745"};
+            const optionsConData = {name: "Confirmed", data: confirmedCaseData, color: "#ff073a"};
+            const optionsDesData = {name: "Deceased", data: deceasedCaseData, color: "#6c757d"};
+            const optionsActData = {name: "Active", data: activeCaseData, color: "#007bff"};
 
             const totalConfirmed = data.cases_time_series[data.cases_time_series.length-1].totalconfirmed;
             const dailyConfirmed = data.cases_time_series[data.cases_time_series.length-1].dailyconfirmed;
