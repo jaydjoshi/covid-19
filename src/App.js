@@ -5,6 +5,7 @@ import { Switch, Route, Link,  BrowserRouter as Router } from "react-router-dom"
 import AboutPage from "./component/about/AboutPage";
 import CovidDashboardPage from "./component/dashboard/CovidDashboardPage";
 import NotFoundPage from "./component/NotFoundPage";
+import Logout from "./component/Logout";
 import { hot } from "react-hot-loader";
 import Login from "./component/auth/Login"
 import Register from "./component/auth/Register"
@@ -29,6 +30,7 @@ class App extends React.Component {
           <Route exact path="/covid-19/register" component={Register} />
           <Route exact path="/covid-19/dashboard" component={CovidDashboardPage} />
           <Route path="/covid-19/about" component={AboutPage} />
+          <Route path="/covid-19/logout" component={Logout} />
           <Route component={NotFoundPage} />
         </Switch>
         </Router>

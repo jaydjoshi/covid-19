@@ -9,8 +9,8 @@ import {apiUrl} from '../../util/Url.js'
 import {optionsConfirmed, optionsRecovered, optionsActive, optionsDeceased} from '../../util/ChartUtils.js'
 
 import authHeader from '../../service/AuthHeader';
-
-
+import {Link} from "react-router-dom";
+import AuthService from "../../service/AuthService";
 
 const accessToken = authHeader();
 
@@ -121,7 +121,6 @@ class CovidDashboardPage extends React.Component {
                 const optionsActData = {name: "Active", data: activeCaseData, color: "#3f51b5"};
                 const optionsTesData = {name: "Tested", data: testedData, color: "#673ab7"};
                 const optionsVacData = {name: "Vacinated", data: vacinationData, color: "#03a9f4"};
-                console.log(vacinationData);
 
                 const totalConfirmed = data.cases_time_series[data.cases_time_series.length-1].totalconfirmed;
                 const dailyConfirmed = data.cases_time_series[data.cases_time_series.length-1].dailyconfirmed;
@@ -133,13 +132,26 @@ class CovidDashboardPage extends React.Component {
                 let dailyActive = dailyConfirmed - dailyRecovered - dailyDeceased;
 
                 const rowData = data.statewise.filter(item => item.state !== "State Unassigned");
+                const user = JSON.parse(localStorage.getItem("user"));
+                const username = user["username"];
+
             return (
             <div className="row">
                 <div className="col-lg-12">
+                <br/>
+                <div className="row">
+                    <div className="col-md-8 sol-sm-12">
+                        <nav className="page-header">
+                            <h2>Covid-19 Dashboard</h2>
+                        </nav>
+                    </div>
+                    <div className="col text-right">
 
-                <div className="page-header">
-                    <h2>Covid-19 Dashboard</h2> <hr/>
+                        <p>Welcome, {username} </p>
+                        <Link to='/covid-19/logout' onClick={() => AuthService.logout()}>logout</Link>
+                    </div>
                 </div>
+                <hr/>
 
                 <br/>
                 <div className="row">
