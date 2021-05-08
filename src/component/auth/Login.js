@@ -61,7 +61,7 @@ class Login extends Component {
         () => {
             console.log("In login.js")
           this.props.history.push("/covid-19/dashboard");
-          //window.location.reload();
+          window.location.reload();
         },
         error => {
           const resMessage =
@@ -70,7 +70,7 @@ class Login extends Component {
               error.response.data.message) ||
             error.message ||
             error.toString();
-
+            console.log("Error while login : In login.js")
           this.setState({
             loading: false,
             message: resMessage
