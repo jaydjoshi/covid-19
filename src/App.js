@@ -25,12 +25,12 @@ class App extends React.Component {
             <Router>
           <Switch>
 
-          <Route exact path={["/covid-19", "/covid-19/login"]} component={Login} />
+          <Route exact path={["/", "/login"]} component={Login} />
 
-          <Route exact path="/covid-19/register" component={Register} />
-          <Route exact path="/covid-19/dashboard" component={CovidDashboardPage} />
-          <Route path="/covid-19/about" component={AboutPage} />
-          <Route path="/covid-19/logout" component={Logout} />
+          <Route exact path="/register" component={Register} />
+          <Route exact path="/dashboard" component={CovidDashboardPage} />
+          <Route path="/about" component={AboutPage} />
+          <Route path="/logout" component={Logout} />
           <Route component={NotFoundPage} />
         </Switch>
         </Router>

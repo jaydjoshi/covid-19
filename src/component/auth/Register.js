@@ -169,7 +169,7 @@ export default class Register extends Component {
                 <div>
                 {this.state.successful && (
                     <p className="text-center">
-                                                       <Link to='/covid-19'>Click here to Login</Link>
+                                                       <Link to='/'>Click here to Login</Link>
                                      </p>)
                 }
                 </div>

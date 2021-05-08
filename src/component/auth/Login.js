@@ -59,7 +59,7 @@ class Login extends Component {
       AuthService.login(this.state.username, this.state.password).then(
         () => {
             console.log("In login.js")
-          this.props.history.push("/covid-19/dashboard");
+          this.props.history.push("/dashboard");
           window.location.reload();
         },
         error => {
@@ -133,7 +133,7 @@ class Login extends Component {
                 </Form>
                 <hr className="my-4"/>
                 <p className="text-center">
-                                   <Link to='/covid-19/register'>Create an Account</Link>
+                                   <Link to='/register'>Create an Account</Link>
 
                  </p>
               </div>

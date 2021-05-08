@@ -148,7 +148,7 @@ class CovidDashboardPage extends React.Component {
                     <div className="col text-right">
 
                         <h6>Welcome, {username} </h6>
-                        <Link to='/covid-19/logout' onClick={() => AuthService.logout()}>logout</Link>
+                        <Link to='/logout' onClick={() => AuthService.logout()}>logout</Link>
                     </div>
                 </div>
                 <hr/>
